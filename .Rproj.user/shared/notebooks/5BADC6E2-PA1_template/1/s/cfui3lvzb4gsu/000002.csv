@@ -1,0 +1,4 @@
+"0","# Calculate the total number of daily steps"
+"0","  dailySteps <- aggregate(steps ~ date, cleanData, sum)"
+"0","# Create a histogram of no. of daily steps"
+"0","  hist(dailySteps$steps, main = ""Histogram of total number of daily steps"", xlab = ""Steps per day"")"

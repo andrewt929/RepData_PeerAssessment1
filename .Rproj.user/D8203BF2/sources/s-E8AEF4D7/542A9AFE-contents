@@ -1,80 +1,54 @@
----
-title: "PA1_template"
-author: "Andrew Taylor"
-date: "April 8, 2018"
-output: 
-  html_document:
-    keep_md: true
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Add required packages
-
-Add reqired packages:
-
-```{r step 0, echo = TRUE}
+## Part 0: Require packagaes
 require("knitr")
 require("mice")
 require("ggplot2")
-```
 
-## Step 1: Load & process the data
-```{r step 1, echo = TRUE}
+## Part 1: Reading and Processing the data
 temp <- tempfile()
 download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", temp)
 data <- read.csv(unz(temp, "activity.csv"), as.is = TRUE)
 cleanData <- data[complete.cases(data), ]
 unlink(temp)
-```
 
-## Step 2: Make a histogram of the total number of steps taken each day
-```{r step 2, echo = TRUE}
+
+## Part 2: Generating a histogram of the total number of steps taken each day
 # Calculate the total number of daily steps
   dailySteps <- aggregate(steps ~ date, cleanData, sum)
 
 # Create a histogram of no. of daily steps
   hist(dailySteps$steps, main = "Histogram of total number of daily steps", xlab = "Steps per day")
-```
 
-## Step 3: Report the mean and mdeain of steps taken each day
-```{r step 3, echo = TRUE}
+  
+## Part 3: Calculating the mean & median
 # Calculate the mean and median of the total number of daily steps
   round(mean(dailySteps$steps))
 
   median(dailySteps$steps)
-```
 
-## Step 4: Add a time series plot of the average number of steps taken
-```{r step 4, echo = TRUE}
+
+## Part 4: Time series plot of avg number of steps taken
 # Calculate average steps per interval for all days 
   avgIntervalSteps <- aggregate(steps ~ interval, cleanData, mean)
 
 # Plot the time series with appropriate labels and heading
   plot(avgIntervalSteps$interval, avgIntervalSteps$steps, type='l', col=1, main="Average number of steps by Interval", xlab="Time Intervals", ylab="Average number of steps")
-```
 
-## Step 5: Isolate the 5 minutes interval that, on average contains the maximum number of steps
-```{r step 5, echo = TRUE}
+
+## Part 5: Identify the 5 minute interval that, on average, contains the maximum number of steps
 # Identify the interval index which has the highest average steps
   interval_idx <- which.max(avgIntervalSteps$steps)
 
 # Identify the specific interval and the average steps for that interval
   print (paste("The interval with the highest avg steps is ", avgIntervalSteps[interval_idx, ]$interval, " and the no of steps for that interval is ", round(avgIntervalSteps[interval_idx, ]$steps, digits = 1)))
-```
 
-## Step 6: Show code to describe a strategy for imputing missing data.
-Here were are using the mice package to generate new data using predictive mean matching (pmm). To simplify things, we are only keeping the 1st of 3 imputations, but a more robust process could be written to pool all imputations. 
-```{r step 6, echo = TRUE}
+
+## Part 6: Code to describe & show a strategy for imputing missing data
 # Devise a strategy & create a new dataset that is equal to the original but with the missing data filled in
   imputedData <- mice(data, m=5, method = "pmm", maxit = 3)
   completeData <- complete(imputedData, 1)
-```
+  
 
-## Step 7: Generate a histogram of the total number steps taken each day after missing values are imputed
-```{r step 7, echo = TRUE}
+## Part 7: Generating a histogram of the total number of steps taken each day
 # Calculate the total number of daily steps
   imputedDailySteps <- aggregate(steps ~ date, completeData, sum)
 
@@ -85,10 +59,9 @@ Here were are using the mice package to generate new data using predictive mean 
   round(mean(imputedDailySteps$steps))
 
   median(imputedDailySteps$steps)
-```
 
-## Step 8: Generate a panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
-```{r step 8, echo = TRUE}
+
+## Part 8: Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
   completeData['type_of_day'] <- weekdays(as.Date(completeData$date))
   completeData$type_of_day[completeData$type_of_day  %in% c('Saturday','Sunday') ] <- "weekend"
   completeData$type_of_day[completeData$type_of_day != "weekend"] <- "weekday"
@@ -109,4 +82,3 @@ Here were are using the mice package to generate new data using predictive mean 
         ylab = "Number of steps", 
         main = "") +
     facet_wrap(~ type_of_day, ncol = 1)
-```

@@ -1,0 +1,8 @@
+"0","# Identify the interval index which has the highest average steps"
+"0","  interval_idx <- which.max(avgIntervalSteps$steps)"
+"0","# Identify the specific interval and the average steps for that interval"
+"0","  print (paste(""The interval with the highest avg steps is "", avgIntervalSteps[interval_idx, ]$interval, "" and the no of steps for that interval is "", round(avgIntervalSteps[interval_idx, ]$steps, digits = 1)))"
+"1","[1]"
+"1"," ""The interval with the highest avg steps is  835  and the no of steps for that interval is  206.2"""
+"1","
+"

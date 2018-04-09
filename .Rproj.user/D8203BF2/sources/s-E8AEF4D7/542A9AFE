@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523224025710.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "542A9AFE",
+    "lastKnownWriteTime" : 1523236406,
+    "last_content_update" : 1523236406774,
+    "path" : "C:/Users/andre/Dropbox/Programming/Coursera/datasciencecoursera/Course 5 - Reproducable Research/Week 2/Course Project/ActivityMonitoringAnalysis.R",
+    "project_path" : "ActivityMonitoringAnalysis.R",
+    "properties" : {
+        "cursorPosition" : "64,0",
+        "scrollLine" : "40",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
